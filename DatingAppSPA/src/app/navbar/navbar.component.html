@@ -1,0 +1,60 @@
+<nav class="d-flex navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Private Place</a>
+
+
+    <ul *ngIf="estaLogueado()" class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#"> Amigos </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Todos</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="#">Mensajes</a>
+      </li>
+      <li class="nav-item"></li>
+      <a href="#" (click)="desloguearse()" class="nav-link">Log out</a>
+    </ul>
+
+    <div *ngIf="estaLogueado()" class="dropdown">
+      <a  class="dropdown-toggle text-dark">Bienvenido!</a>
+
+      
+    <div class="dropdown-menu"></div>
+    <a  class="dropdown-item"> <i class="fa fa-user"></i> Editar Perfil</a>
+    <div class="dropdown-divider"></div>
+    <a   class="dropdown-item"><i class="fa fa-sign-out"></i> Log out</a>
+    </div>
+
+
+    <form #loginFormulario="ngForm" *ngIf="!estaLogueado()" (ngSubmit)="loguearse()" class="form-inline my-2 my-lg-0 ml-auto">
+      <input [(ngModel)]="modelo.usuario" required  name="usr" #usrid="ngModel" 
+      class="form-control mr-sm-2" type="text" placeholder="Usuario" >
+      <input [(ngModel)]="modelo.contrasenia" required name="pwd"  #pwdid="ngModel"
+       class="form-control mr-sm-2" type="password" placeholder="Password" >
+      <button [disabled]="loginFormulario.valid? false:true" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Login
+      </button>
+    </form>
+ 
+</nav>
+
+<!-- <pre>
+de esta manera con y con los #usrid="ngModel" puedo ver en pantalla lo datos del form
+
+  Formulario Valido: {{loginFormulario.valid}}
+  Formulario presionado: {{loginFormulario.touched}}
+  Formulario sucio: {{loginFormulario.dirty}}
+  Formulario valores: {{loginFormulario.value | json}}
+
+  Usuario Valido: {{usrid.valid}}
+  Usuario presionado: {{usrid.touched}}
+  Usuario sucio: {{usrid.dirty}}
+  Usuario valores: {{usrid.value }}
+
+  Pwd Valido: {{pwdid.valid}}
+  Pwd presionado: {{pwdid.touched}}
+  Pwd sucio: {{pwdid.dirty}}
+  Pwd valores: {{pwdid.value }}
+</pre> -->

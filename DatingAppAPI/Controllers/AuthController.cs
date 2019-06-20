@@ -1,3 +1,4 @@
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -50,6 +51,7 @@ namespace DatingAppAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UsuarioLoginDto usrDto)
         {
+            //throw new Exception("Error en logueo");
 
             var usr = await repo.Login(usrDto.Usuario.ToLower(), usrDto.Contrasenia);
 

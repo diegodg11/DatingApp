@@ -1,0 +1,25 @@
+<form #formularioRegistro="ngForm" (ngSubmit)="ConcretrarRegistro()">
+
+  <h2 class="text-center text-primary"> Registro </h2>
+    <hr>
+    <div class="form-group">
+      <input type="text" class="form-control" name="usuario"  [(ngModel)]="modelo.usuario" required placeholder="Usuario">
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" name="password" [(ngModel)]="modelo.password" required placeholder="Password">
+      </div>
+
+      <div class="form-group">
+        <button [disabled]="!formularioRegistro.valid"  class="btn btn-success mr-2">
+       Registrarse 
+      </button>
+      <button (click)="VolverAHome()" class="btn btn-warning border">
+        Cancelar
+
+      </button>
+    </div>
+</form>
+
+<!-- este es solo un ejemplo de comunicacion de componentes
+  padre a hijo entre home y registro
+  <p *ngFor="let item of valoresDesdeHome">{{item.nombre}}</p> -->

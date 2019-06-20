@@ -21,6 +21,9 @@ namespace DatingAppAPI.Data
 
         public async Task<Usuario> Login(string usuario, string contrasenia)
         {
+            if(usuario==null || contrasenia==null)
+            return null;
+            
             var usr = await db.Usuarios.FirstOrDefaultAsync(e => e.Username==usuario);
              if (usr==null)
              return null;

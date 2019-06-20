@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div *ngIf="!visibilidadFormRegistro" class="text-center" >
+    <h1>
+    Hacé nuevos amigos
+    </h1>
+<p class="lead">Registrate y comenzá a conocer nueva gente!</p>
+<div class="text-center">
+  <button (click)="MostrarFormRegistro()" class="btn btn-primary btn-lg mr-2">Registrate</button>
+  <button class="btn btn-info btn-lg">Más info</button>
+</div>
+  </div>
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div *ngIf="visibilidadFormRegistro" class="col-4">
+      <app-registro [valoresDesdeHome]="valores" (cancelarRegistro)="OcultarFormRegistro($event)" ></app-registro>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<!-- solo para ver que los valores son retornados desde la api
+  <p *ngFor="let item of valores">{{item.nombre}}</p> -->
