@@ -1,30 +1,32 @@
-<nav class="d-flex navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Private Place</a>
+<nav class="d-flex navbar navbar-expand-lg navbar-light bg-dark">
+<div class="container-fluid">
+    <a class="navbar-brand text-white" [routerLink]="['/home']"  ><b>Private Place</b></a>
 
 
     <ul *ngIf="estaLogueado()" class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#"> Amigos </a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link text-white" [routerLink]="['/miembros']"  > Amigos </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Todos</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link text-white" [routerLink]="['/likes']"   >Todos</a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="#">Mensajes</a>
+      <li class="nav-item" routerLinkActive="active" >
+        <a class="nav-link text-white" [routerLink]="['/mensajes']"  >Mensajes</a>
       </li>
-      <li class="nav-item"></li>
-      <a href="#" (click)="desloguearse()" class="nav-link">Log out</a>
+     
     </ul>
 
-    <div *ngIf="estaLogueado()" class="dropdown">
-      <a  class="dropdown-toggle text-dark">Bienvenido!</a>
+    <div *ngIf="estaLogueado()" class="dropdown" dropdown>
+       <!-- para que srv no quede marcado en rojo debemos poner srv como plublic en el componente -->
+      <a dropdownToggle (click)="false"  
+      class="dropdown-toggle text-white">Bienvenido <b>{{srv.tokenDecodificado.unique_name | uppercase}}</b> !</a>
 
-      
-    <div class="dropdown-menu"></div>
+<ul *dropdownMenu class="dropdown-menu mt-3">
     <a  class="dropdown-item"> <i class="fa fa-user"></i> Editar Perfil</a>
     <div class="dropdown-divider"></div>
-    <a   class="dropdown-item"><i class="fa fa-sign-out"></i> Log out</a>
+    <a  class="dropdown-item" (click)="desloguearse()"><i class="fa fa-sign-out"></i> Log out</a>
+  </ul>
     </div>
 
 
@@ -37,6 +39,9 @@
         Login
       </button>
     </form>
+ 
+</div>
+
  
 </nav>
 

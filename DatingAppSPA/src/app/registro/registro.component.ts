@@ -1,5 +1,6 @@
 import { AuthService } from './../_servicios/auth.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { AlertifyService } from '../_servicios/alertify.service';
 
 
 
@@ -9,6 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+  
   //parentToChild
   @Input() valoresDesdeHome: any;
   //childToParent
@@ -16,18 +18,22 @@ export class RegistroComponent implements OnInit {
   modelo: any ={};
 
   //inyectamos el srv
-  constructor(private srv: AuthService) { }
+  constructor(private srv: AuthService, private alertify:AlertifyService) { }
 
   ngOnInit() {
   }
 
   ConcretrarRegistro(){
+
     console.log(this.modelo);
     //para el caso del exito esta vez uso () en vez de una variable por ej rta porq no devuelvo nada
     this.srv.RegistrarNuevoUsuario(this.modelo).subscribe(()=> {
-      console.log("Se registró exitosamente")
+      this.alertify.exito("Registrado!");
+      //console.log("Se registró exitosamente")
     },error => {
-      console.log(error)
+      this.alertify.error("Error registro");
+      
+      //console.log(error)
     })
   }
 

@@ -4,6 +4,7 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 @Injectable()
+//este archivo o srv se creo directamente como un archivo, sin usar generate srv
 
 export class ErrorInterceptor implements HttpInterceptor {
 
@@ -13,16 +14,17 @@ export class ErrorInterceptor implements HttpInterceptor {
             catchError(error => {
                 if (error instanceof HttpErrorResponse) {
 
-                    if(error.status===401) {
+                    if(error.status===401) { //devuelve errores de no autorizado
                     return throwError(error.statusText);
                 }
+                    //errores con header aplicacion-error
                     const aplicacionError = error.headers.get('Aplicacion-Error');
                     if (aplicacionError) {
                         return throwError(aplicacionError);
                     }
                     
                     const serverError= error.error;
-                    let modalStateErrors='';
+                    let modalStateErrors=''; //devuelve lista de errores del modelo
                     if(serverError && typeof serverError==='object'){
                         for(const key in serverError){
                             if(serverError[key]){

@@ -36,11 +36,15 @@ namespace DatingAppAPI
         {
             //dps de crear nuestro DataContext class para acceso a bd necesitamos inyectarlo como servicio
             services.AddDbContext<DataContext>(e => e.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).
+            AddJsonOptions(op => {
+               op.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
           
             services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddScoped<IDatingRepository,DatingRepository>();
            
-            //autencicacion como servicio 
+            //autenticacion como servicio 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
             AddJwtBearer( opciones => {
 
@@ -55,10 +59,11 @@ namespace DatingAppAPI
 
             );
         services.AddCors();
+        services.AddTransient<SeedData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData seeder)
         {
             if (env.IsDevelopment())
             {
@@ -89,7 +94,9 @@ namespace DatingAppAPI
 
             }
 
-           // app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();y
+            //comento esta linea porque solo necesito el seed una vez dps del drop y update 
+            //seeder.SeedingUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseAuthentication();
             app.UseMvc();

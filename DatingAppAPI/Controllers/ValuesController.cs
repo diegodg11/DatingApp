@@ -13,7 +13,7 @@ namespace DatingAppAPI.Controllers
     //http://localhost:5000/api/values
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize] 
     public class ValuesController : ControllerBase
     {
         private readonly DataContext db;
@@ -40,6 +40,7 @@ namespace DatingAppAPI.Controllers
         }
 
         [HttpGet("asyncall")]
+         [AllowAnonymous]
         public async Task<IActionResult> GetAllAsync() {
 
         var valores = await db.Valores.ToListAsync();
@@ -47,6 +48,7 @@ namespace DatingAppAPI.Controllers
         }
         // GET api/values/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public ActionResult<string> Get(int id)
         {
             return "valor con id en url " + id;
