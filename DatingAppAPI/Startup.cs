@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingAppAPI.Data;
 using DatingAppAPI.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,6 +35,7 @@ namespace DatingAppAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             //dps de crear nuestro DataContext class para acceso a bd necesitamos inyectarlo como servicio
             services.AddDbContext<DataContext>(e => e.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).
@@ -60,6 +62,8 @@ namespace DatingAppAPI
             );
         services.AddCors();
         services.AddTransient<SeedData>();
+        services.AddAutoMapper();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
