@@ -20,6 +20,7 @@ import {appRoutes} from './routes';
 import { UrlSerializer } from '@angular/router';
 import { LowerCaseUrlSerializer } from './lowercase-url-serializer';
 import { AuthGuard } from './_guards/auth.guard';
+import { UsuarioService } from './_servicios/usuario.service';
 
 @NgModule({
    declarations: [
@@ -48,7 +49,8 @@ import { AuthGuard } from './_guards/auth.guard';
          provide:UrlSerializer,
          useClass:LowerCaseUrlSerializer
        },
-       AuthGuard
+       AuthGuard,
+       UsuarioService
    ],
    bootstrap: [
       AppComponent
